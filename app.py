@@ -103,8 +103,8 @@ LANG = {
         "add_fav": "Favorilere Ekle",
         "fav_name_input": "Favori Adı (Örn: Ev, İş):",
         "saved_favs": "Hızlı Seçim:",
-        "sim_header": "🚨 Hat Bakım / Kesinti",
-        "sim_desc": "Bakımda/kapalı olan hatları seçin:"
+        "sim_header": "🚨 Hat Bakım / Kesinti Simülasyonu",
+        "sim_desc": "Bakımda/kapalı olan hatları buradan seçebilirsiniz:"
     },
     "en": {
         "title": "🚇 Istanbul Rail Transit Assistant",
@@ -121,7 +121,7 @@ LANG = {
         "route_summary": "🚇 Fastest Route Summary:",
         "step": "Step:",
         "board_line": "board the line",
-        "map_header": "🗺️ Rota Map",
+        "map_header": "🗺️ Route Map",
         "no_path": "No direct connection found due to lines under maintenance!",
         "error": "An unexpected error occurred:",
         "est_time": "Estimated Time",
@@ -132,8 +132,8 @@ LANG = {
         "add_fav": "Add to Favorites",
         "fav_name_input": "Favorite Name (e.g., Home, Work):",
         "saved_favs": "Quick Select:",
-        "sim_header": "🚨 Line Maintenance",
-        "sim_desc": "Select lines under maintenance:"
+        "sim_header": "🚨 Line Maintenance Simulation",
+        "sim_desc": "Select lines under maintenance here:"
     }
 }
 
@@ -170,20 +170,14 @@ def build_transit_graph(maintenance_list):
                         G.add_edge(station["id"], neighbor)
     return G
 
-# --- SOL MENÜ (SİDEBAR): HAT BAKIM / KESİNTİ SİMÜLASYONU ---
 stations = load_stations()
 all_lines = sorted(list(set([s["line"] for s in stations])))
 
-with st.sidebar:
-    st.markdown(f"### {t['sim_header']}")
-    st.write(t["sim_desc"])
-    selected_maintenance = st.multiselect("Hatlar / Lines", options=all_lines, default=st.session_state.maintenance_lines, label_visibility="collapsed")
-    st.session_state.maintenance_lines = selected_maintenance
+# --- ÜST KISIM (BAŞLIK VE KÜÇÜK YAN YANA BUTONLAR) ---
+col_title, col_theme, col_tr, col_en = st.columns([5, 1, 1, 1])
 
-# --- ÜST KISIM (BAŞLIK, DİL VE TEMA SEÇİMİ) ---
-col1, col_theme, col_tr, col_en = st.columns([3, 1, 1, 1])
-with col1:
-    title_placeholder = st.empty()
+with col_title:
+    st.markdown(f"## {t['title']}")
 
 with col_theme:
     if st.button("🌙" if is_dark else "☀️", use_container_width=True):
@@ -200,8 +194,14 @@ with col_en:
         st.session_state.lang = "en"
         st.rerun()
 
-title_placeholder.markdown(f"## {t['title']}")
 st.write(t["subtitle"])
+
+# --- HAT BAKIM / KESİNTİ SİMÜLASYONU (ANA EKRANDA RAHAT ERİŞİM İÇİN EXPANDER) ---
+with st.expander(t["sim_header"], expanded=False):
+    st.write(t["sim_desc"])
+    selected_maintenance = st.multiselect("Hatlar / Lines", options=all_lines, default=st.session_state.maintenance_lines, label_visibility="collapsed")
+    st.session_state.maintenance_lines = selected_maintenance
+
 st.markdown("---")
 
 station_options = {s["name"]: s["id"] for s in stations}
@@ -282,35 +282,45 @@ if st.button(t["calc_button"]):
             try:
                 path = nx.shortest_path(G, source=nearest_station["id"], target=target_id)
                 
+                # --- DOĞRULANMIŞ ROTA ADIMLARI VE AKTARMA SAYACI ---
                 steps = []
-                if path:
-                    current_segment_start = G.nodes[path[0]]['name']
-                    current_line = G.nodes[path[0]]['line']
-                    last_station = current_segment_start
+                if path and len(path) > 1:
+                    def get_common_line(n1_data, n2_data):
+                        lines1 = [l.strip() for l in n1_data['line'].split('/')]
+                        lines2 = [l.strip() for l in n2_data['line'].split('/')]
+                        common = [l for l in lines1 if l in lines2]
+                        return common[0] if common else lines2[0]
+
+                    current_from = G.nodes[path[0]]['name']
+                    active_line = get_common_line(G.nodes[path[0]], G.nodes[path[1]])
+                    segment_start = current_from
                     
                     for i in range(1, len(path)):
-                        node_data = G.nodes[path[i]]
-                        station_name = node_data['name']
-                        line = node_data['line']
+                        n_curr = G.nodes[path[i]]
+                        n_prev = G.nodes[path[i-1]]
+                        curr_lines = [l.strip() for l in n_curr['line'].split('/')]
                         
-                        if line != current_line or i == len(path) - 1:
+                        if active_line not in curr_lines:
                             steps.append({
-                                "from": current_segment_start,
-                                "to": station_name if i == len(path) - 1 else last_station,
-                                "line": current_line
+                                "from": segment_start,
+                                "to": n_prev['name'],
+                                "line": active_line
                             })
-                            current_segment_start = last_station
-                            current_line = line
-                        last_station = station_name
+                            segment_start = n_prev['name']
+                            active_line = curr_lines[0]
+                        
+                        if i == len(path) - 1:
+                            steps.append({
+                                "from": segment_start,
+                                "to": n_curr['name'],
+                                "line": active_line
+                            })
 
-                total_distance_km = 0
-                for i in range(len(path) - 1):
-                    n1 = G.nodes[path[i]]
-                    n2 = G.nodes[path[i+1]]
-                    total_distance_km += haversine(n1['lat'], n1['lon'], n2['lat'], n2['lon'])
+                total_transfers = max(0, len(steps) - 1)
+                total_stations = len(path) - 1
                 
-                total_transfers = len(steps) - 1
-                estimated_minutes = max(5, int(total_distance_km * 3.0 + (total_transfers * 5)))
+                # Gerçekçi Metro Süre Formülü: (Durak Başına 2 Dk) + (Aktarma Başına 4 Dk)
+                estimated_minutes = (total_stations * 2) + (total_transfers * 4)
 
                 st.markdown("---")
                 col_m1, col_m2 = st.columns(2)
@@ -347,4 +357,4 @@ if st.button(t["calc_button"]):
             except nx.NetworkXNoPath:
                 st.error(t["no_path"])
             except Exception as e:
-                st.error(f"{t['error']} {e}")
+                st.error(f"{t['error']} {e}")   
