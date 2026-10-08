@@ -1,0 +1,86 @@
+[
+  { "id": "bagcilar_meydan", "name": "Bağcılar Meydan (M1B / T1)", "lat": 41.0372, "lon": 28.8553, "line": "M1B / T1", "neighbors": ["ucyuzlu", "bagcilar_t1", "t4_bagcilar_meydan"] },
+  { "id": "bagcilar_t1", "name": "Bağcılar (T1 Tramvay)", "lat": 41.0390, "lon": 28.8580, "line": "T1", "neighbors": ["bagcilar_meydan", "zeytinburnu_t1"] },
+  { "id": "zeytinburnu_t1", "name": "Zeytinburnu (T1 Tramvay)", "lat": 40.9880, "lon": 28.9000, "line": "T1 / M1A", "neighbors": ["bagcilar_t1", "eminonu_t1", "zeytinburnu_m1a"] },
+  { "id": "eminonu_t1", "name": "Eminönü / Kabataş (T1)", "lat": 41.0180, "lon": 28.9730, "line": "T1", "neighbors": ["zeytinburnu_t1"] },
+
+  { "id": "ucyuzlu", "name": "Üçyüzlü (M1B)", "lat": 41.0290, "lon": 28.8470, "line": "M1B", "neighbors": ["bagcilar_meydan", "kirazli"] },
+  
+  { "id": "bakirkoy_sahil", "name": "Bakırköy Sahil (M3)", "lat": 40.9780, "lon": 28.8750, "line": "M3", "neighbors": ["ozgurluk_meydani"] },
+  { "id": "ozgurluk_meydani", "name": "Özgürlük Meydanı (M3 / Marmaray)", "lat": 40.9830, "lon": 28.8790, "line": "M3 / Marmaray", "neighbors": ["bakirkoy_sahil", "incirli_m3"] },
+  { "id": "incirli_m3", "name": "İncirli (M3)", "lat": 41.0020, "lon": 28.8710, "line": "M3", "neighbors": ["ozgurluk_meydani", "molla_gurani_m3"] },
+  
+  { "id": "molla_gurani_m3", "name": "Molla Gürani (M3)", "lat": 41.0250, "lon": 28.8450, "line": "M3", "neighbors": ["incirli_m3", "kirazli"] },
+
+  { "id": "kirazli", "name": "Kirazlı (M1B / M3)", "lat": 41.0331, "lon": 28.8354, "line": "M1B / M3", "neighbors": ["ucyuzlu", "molla_gurani_m3", "bagcilar_baglar", "yenimahalle_m3"] },
+  { "id": "bagcilar_baglar", "name": "Bağcılar Bağlar (M1B)", "lat": 41.0220, "lon": 28.8700, "line": "M1B", "neighbors": ["kirazli", "yenikapi"] },
+  
+  { "id": "yenikapi", "name": "Yenikapı (M1A / M1B / M2 / Marmaray)", "lat": 41.0082, "lon": 28.9515, "line": "M1A / M1B / M2 / Marmaray", "neighbors": ["bagcilar_baglar", "vezneciler", "sirkesi", "aksaray", "yenikapi_m1a"] },
+  { "id": "aksaray", "name": "Aksaray (M1B)", "lat": 41.0100, "lon": 28.9480, "line": "M1B", "neighbors": ["yenikapi"] },
+  
+  { "id": "m1a_havalimani", "name": "Atatürk Havalimanı (M1A)", "lat": 40.9760, "lon": 28.8150, "line": "M1A", "neighbors": ["zeytinburnu_m1a"] },
+  { "id": "zeytinburnu_m1a", "name": "Zeytinburnu (M1A)", "lat": 40.9880, "lon": 28.9000, "line": "M1A", "neighbors": ["m1a_havalimani", "yenikapi_m1a"] },
+  { "id": "yenikapi_m1a", "name": "Yenikapı (M1A)", "lat": 41.0082, "lon": 28.9515, "line": "M1A", "neighbors": ["zeytinburnu_m1a", "yenikapi"] },
+
+  { "id": "vezneciler", "name": "Vezneciler (M2)", "lat": 41.0135, "lon": 28.9595, "line": "M2", "neighbors": ["yenikapi", "haliic"] },
+  { "id": "haliic", "name": "Haliç (M2)", "lat": 41.0200, "lon": 28.9660, "line": "M2", "neighbors": ["vezneciler", "sishane"] },
+  { "id": "sishane", "name": "Şişhane (M2)", "lat": 41.0270, "lon": 28.9740, "line": "M2", "neighbors": ["haliic", "taksim"] },
+  { "id": "taksim", "name": "Taksim (M2 / F1)", "lat": 41.0369, "lon": 28.9850, "line": "M2 / F1", "neighbors": ["sishane", "osmanbey"] },
+  { "id": "osmanbey", "name": "Osmanbey (M2)", "lat": 41.0490, "lon": 28.9855, "line": "M2", "neighbors": ["taksim", "sisli_mecidiyekoy"] },
+  { "id": "sisli_mecidiyekoy", "name": "Mecidiyeköy (M2 / M7 / Metrobüs)", "lat": 41.0657, "lon": 28.9966, "line": "M2 / M7 / Metrobüs", "neighbors": ["osmanbey", "gayrettepe", "mecidiyekoy_m7", "levent_m2", "metrobus_mecidiyekoy"] },
+  
+  { "id": "gayrettepe", "name": "Gayrettepe (M2 / M11)", "lat": 41.0710, "lon": 29.0020, "line": "M2 / M11", "neighbors": ["sisli_mecidiyekoy", "istanbul_havalimani_m11"] },
+  { "id": "istanbul_havalimani_m11", "name": "İstanbul Havalimanı (M11)", "lat": 41.2750, "lon": 28.7519, "line": "M11", "neighbors": ["gayrettepe"] },
+
+  { "id": "levent_m2", "name": "Levent (M2 / M6)", "lat": 41.0780, "lon": 29.0120, "line": "M2 / M6", "neighbors": ["sisli_mecidiyekoy", "bogazici_m6"] },
+  { "id": "bogazici_m6", "name": "Boğaziçi Üniversitesi / Hisarüstü (M6)", "lat": 41.0850, "lon": 29.0400, "line": "M6", "neighbors": ["levent_m2"] },
+
+  { "id": "sirkesi", "name": "Sirkeci (Marmaray)", "lat": 41.0120, "lon": 28.9760, "line": "Marmaray", "neighbors": ["yenikapi", "uskudar"] },
+  { "id": "uskudar", "name": "Üsküdar (Marmaray / M5)", "lat": 41.0260, "lon": 29.0150, "line": "Marmaray / M5", "neighbors": ["sirkesi", "ayrilik_cesmesi", "fistikagaci_m5", "metrobus_uskudar"] },
+  
+  { "id": "fistikagaci_m5", "name": "Fıstıkağacı (M5)", "lat": 41.0230, "lon": 29.0320, "line": "M5", "neighbors": ["uskudar", "umraniye_m5"] },
+  { "id": "umraniye_m5", "name": "Ümraniye (M5)", "lat": 41.0310, "lon": 29.1150, "line": "M5", "neighbors": ["fistikagaci_m5", "cekmekoy_m5"] },
+  { "id": "cekmekoy_m5", "name": "Çekmeköy / Sultanbeyli (M5)", "lat": 41.0250, "lon": 29.1650, "line": "M5", "neighbors": ["umraniye_m5"] },
+
+  { "id": "ayrilik_cesmesi", "name": "Ayrılık Çeşmesi (M4 / Marmaray)", "lat": 41.0033, "lon": 29.0238, "line": "M4 / Marmaray", "neighbors": ["uskudar", "kadikoy", "acibadem"] },
+  { "id": "kadikoy", "name": "Kadıköy (M4 / T3)", "lat": 40.9901, "lon": 29.0253, "line": "M4 / T3", "neighbors": ["ayrilik_cesmesi", "acibadem", "moda_t3"] },
+  { "id": "moda_t3", "name": "Moda (T3 Nostaljik Tramvay)", "lat": 40.9850, "lon": 29.0280, "line": "T3", "neighbors": ["kadikoy"] },
+
+  { "id": "acibadem", "name": "Acıbadem (M4)", "lat": 41.0000, "lon": 29.0350, "line": "M4", "neighbors": ["kadikoy", "unalcan"] },
+  { "id": "unalcan", "name": "Ünalan (M4 / Metrobüs)", "lat": 41.0050, "lon": 29.0450, "line": "M4 / Metrobüs", "neighbors": ["acibadem", "goztepe_m4", "metrobus_uzuncayir"] },
+  { "id": "goztepe_m4", "name": "Göztepe (M4)", "lat": 40.9850, "lon": 29.0600, "line": "M4", "neighbors": ["unalcan", "kozyatagi_m4"] },
+  { "id": "kozyatagi_m4", "name": "Kozyatağı (M4 / M8)", "lat": 40.9750, "lon": 29.1000, "line": "M4 / M8", "neighbors": ["goztepe_m4", "pendik_m4", "kozyatagi_m8"] },
+  { "id": "pendik_m4", "name": "Pendik (M4 / M10)", "lat": 40.8900, "lon": 29.3100, "line": "M4", "neighbors": ["kozyatagi_m4", "sabiha_gokcen_m4", "fevzi_cakmak_m10"] },
+  { "id": "sabiha_gokcen_m4", "name": "Sabiha Gökçen Havalimanı (M4 / M10)", "lat": 40.8980, "lon": 29.3090, "line": "M4 / M10", "neighbors": ["pendik_m4", "sabiha_gokcen_m10"] },
+
+  { "id": "fevzi_cakmak_m10", "name": "Fevzi Çakmak (M10)", "lat": 40.8850, "lon": 29.2850, "line": "M10", "neighbors": ["pendik_m4", "pendik_merkez_m10"] },
+  { "id": "pendik_merkez_m10", "name": "Pendik Merkez (M10)", "lat": 40.8750, "lon": 29.2300, "line": "M10", "neighbors": ["fevzi_cakmak_m10"] },
+  { "id": "sabiha_gokcen_m10", "name": "Sabiha Gökçen Havalimanı (M10)", "lat": 40.8980, "lon": 29.3090, "line": "M10", "neighbors": ["sabiha_gokcen_m4"] },
+
+  { "id": "yenimahalle_m3", "name": "Yenimahalle (M3)", "lat": 41.0400, "lon": 28.8320, "line": "M3", "neighbors": ["kirazli", "mahmutbey_m3"] },
+  { "id": "mahmutbey_m3", "name": "Mahmutbey (M3 / M7)", "lat": 41.0480, "lon": 28.8250, "line": "M3 / M7", "neighbors": ["yenimahalle_m3", "ivedik_m3", "mahmutbey_m7", "ikitelli_sanayi_m9"] },
+  { "id": "ivedik_m3", "name": "İstoç / Başakşehir Yönü (M3)", "lat": 41.0600, "lon": 28.8150, "line": "M3", "neighbors": ["mahmutbey_m3", "sehir_hastanesi_m3"] },
+
+  { "id": "sehir_hastanesi_m3", "name": "Şehir Hastanesi (M3)", "lat": 41.0900, "lon": 28.7850, "line": "M3", "neighbors": ["ivedik_m3", "kayasehir_merkez_m3"] },
+  { "id": "kayasehir_merkez_m3", "name": "Kayaşehir Merkez (M3)", "lat": 41.1100, "lon": 28.7700, "line": "M3", "neighbors": ["sehir_hastanesi_m3"] },
+
+  { "id": "mahmutbey_m7", "name": "Mahmutbey (M7)", "lat": 41.0480, "lon": 28.8250, "line": "M7", "neighbors": ["mahmutbey_m3", "bolge_park_m7"] },
+  { "id": "bolge_park_m7", "name": "Bölge Parkı (M7)", "lat": 41.0550, "lon": 28.8400, "line": "M7", "neighbors": ["mahmutbey_m7", "yucelt_m7"] },
+  { "id": "yucelt_m7", "name": "Nurtepe / Alibeyköy Bağlantısı (M7)", "lat": 41.0620, "lon": 28.8600, "line": "M7", "neighbors": ["bolge_park_m7", "mecidiyekoy_m7"] },
+  { "id": "mecidiyekoy_m7", "name": "Mecidiyeköy (M7)", "lat": 41.0660, "lon": 28.9970, "line": "M7", "neighbors": ["sisli_mecidiyekoy", "yucelt_m7", "fulya_m7"] },
+  { "id": "fulya_m7", "name": "Fulya / Yıldız (M7)", "lat": 41.0580, "lon": 29.0050, "line": "M7", "neighbors": ["mecidiyekoy_m7"] },
+
+  { "id": "ikitelli_sanayi_m9", "name": "İkitelli Sanayi (M9)", "lat": 41.0700, "lon": 28.7900, "line": "M9", "neighbors": ["mahmutbey_m3", "atakoy_m9"] },
+  { "id": "atakoy_m9", "name": "Ataköy / Bahariye (M9)", "lat": 40.9900, "lon": 28.8500, "line": "M9", "neighbors": ["ikitelli_sanayi_m9"] },
+
+  { "id": "bostanci_m8", "name": "Bostancı (M8)", "lat": 40.9570, "lon": 29.0920, "line": "M8", "neighbors": ["kozyatagi_m8"] },
+  { "id": "kozyatagi_m8", "name": "Kozyatağı (M8 / M4)", "lat": 40.9750, "lon": 29.1000, "line": "M8", "neighbors": ["bostanci_m8", "parseller_m8", "kozyatagi_m4"] },
+  { "id": "parseller_m8", "name": "Parseller (M8)", "lat": 41.0050, "lon": 29.1250, "line": "M8", "neighbors": ["kozyatagi_m8"] },
+
+  { "id": "t4_bagcilar_meydan", "name": "Mescid-i Selam / Topkapı (T4 Tramvay)", "lat": 41.0500, "lon": 28.8700, "line": "T4", "neighbors": ["bagcilar_meydan"] },
+
+  { "id": "metrobus_avcilar", "name": "Avcılar / Beylikdüzü (Metrobüs)", "lat": 40.9800, "lon": 28.7200, "line": "Metrobüs", "neighbors": ["metrobus_mecidiyekoy"] },
+  { "id": "metrobus_mecidiyekoy", "name": "Mecidiyeköy (Metrobüs)", "lat": 41.0650, "lon": 28.9950, "line": "Metrobüs", "neighbors": ["metrobus_avcilar", "metrobus_uzuncayir", "sisli_mecidiyekoy"] },
+  { "id": "metrobus_uzuncayir", "name": "Uzunçayır (Metrobüs)", "lat": 41.0020, "lon": 29.0430, "line": "Metrobüs", "neighbors": ["metrobus_mecidiyekoy", "metrobus_sogutlucesme", "unalcan"] },
+  { "id": "metrobus_sogutlucesme", "name": "Söğütlüçeşme (Metrobüs)", "lat": 40.9920, "lon": 29.0300, "line": "Metrobüs", "neighbors": ["metrobus_uzuncayir", "uskudar"] }
+]
